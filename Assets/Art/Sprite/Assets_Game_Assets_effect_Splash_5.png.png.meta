@@ -55,7 +55,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -64,7 +64,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -314,7 +314,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -323,7 +323,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Assets_Game_Assets_effect_Splash_5.png_0: -2356229501289905413
+      Assets_Game_Assets_effect_Splash_5.png_1: 4850943713412764778
+      Assets_Game_Assets_effect_Splash_5.png_2: -8162952955406588695
+      Assets_Game_Assets_effect_Splash_5.png_3: 3768121935241713047
+      Assets_Game_Assets_effect_Splash_5.png_4: 8065052490380661643
+      Assets_Game_Assets_effect_Splash_5.png_5: 8982554978057455075
+      Assets_Game_Assets_effect_Splash_5.png_6: -1303663798972310915
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -2,15 +2,35 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static UIManager Instance { get; private set; }
+    public UIManagerEvents uiManagerEvents;
+
+    private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
     {
-        
+        CloseAllScene();
+    }
+
+    public void Start()
+    {
+        ShowMainMenu();
+    }
+
+    public void CloseAllScene()
+    {
+        uiManagerEvents.OnCloseMainMenu?.Invoke();
+        uiManagerEvents.OnCloseSettingMenu?.Invoke();
+    }
+
+    public void ShowMainMenu()
+    {
+        uiManagerEvents.OnOpenMainMenu?.Invoke();
     }
 }
