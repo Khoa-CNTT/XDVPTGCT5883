@@ -10,6 +10,15 @@ public class SettingMenuHandler : MonoBehaviour
     private bool isDimmedAudio = false;
     private bool isDimmedMusic = false;
 
+    public void Start()
+    {
+        if (uiManagerEvents == null)
+        {
+            Debug.LogError("UIManagerEvents is not set in Setting Menu");
+            return;
+        }
+    }
+
     public void OnExitButtonClick()
     {
         uiManagerEvents.OnCloseSettingMenu?.Invoke();

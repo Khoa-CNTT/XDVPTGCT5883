@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     {
         uiManagerEvents.OnCloseMainMenu?.Invoke();
         uiManagerEvents.OnCloseSettingMenu?.Invoke();
+        uiManagerEvents.OnCloseNewGameMenu?.Invoke();
     }
 
     public void ShowMainMenu()

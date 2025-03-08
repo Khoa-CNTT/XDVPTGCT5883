@@ -5,13 +5,24 @@ public class UIManagerEvents : MonoBehaviour
 {
     public static UIManagerEvents Instance { get; private set; }
 
+    //UI Elements
     public GameObject mainMenu;
     public GameObject settingMenu;
+    public GameObject newGameMenu;
 
+    //Unity Events
+
+    // Main Menu
     public UnityEvent OnOpenMainMenu;
     public UnityEvent OnCloseMainMenu;
+
+    // Setting Menu
     public UnityEvent OnOpenSettingMenu;
     public UnityEvent OnCloseSettingMenu;
+
+    // newGame Menu
+    public UnityEvent OnOpenNewGameMenu;
+    public UnityEvent OnCloseNewGameMenu;
 
     private void Awake()
     {
@@ -30,6 +41,10 @@ public class UIManagerEvents : MonoBehaviour
         // Setting Menu
         OnOpenSettingMenu.AddListener(OpenSettingMenu);
         OnCloseSettingMenu.AddListener(CloseSettingMenu);
+
+        // newGame Menu
+        OnOpenNewGameMenu.AddListener(OpenNewGameMenu);
+        OnCloseNewGameMenu.AddListener(CloseNewGameMenu);
     }
 
     private void OnDisable()
@@ -41,6 +56,10 @@ public class UIManagerEvents : MonoBehaviour
         // Setting Menu
         OnOpenSettingMenu.RemoveListener(OpenSettingMenu);
         OnCloseSettingMenu.RemoveListener(CloseSettingMenu);
+
+        // newGame Menu
+        OnOpenNewGameMenu.RemoveListener(OpenNewGameMenu);
+        OnCloseNewGameMenu.RemoveListener(CloseNewGameMenu);
     }
 
     // ==================== MAIN MENU ====================
@@ -65,4 +84,14 @@ public class UIManagerEvents : MonoBehaviour
         settingMenu.SetActive(false);
     }
 
+    // ==================== NEW GAME MENU ====================
+    public void OpenNewGameMenu()
+    {
+        newGameMenu.SetActive(true);
+    }
+
+    public void CloseNewGameMenu()
+    {
+        newGameMenu.SetActive(false);
+    }
 }
