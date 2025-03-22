@@ -1,6 +1,8 @@
+using UnityEngine;
+
 namespace dang
 {
-    public class Enemy
+    public class Enemy : MonoBehaviour
     {
         public string entityType;
         public int maxHealth;
@@ -22,7 +24,5 @@ namespace dang
         public Enemy()
         {
         }
-
-
     }
 }
