@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ff860b3b682ec749adcf3105a68aba3, type: 3}
-  m_Name: BlueTower
+  m_Name: RedTower
   m_EditorClassIdentifier: 
-  towerSprite: {fileID: 21300000, guid: a74606af96d73dc429505bbadaa901e2, type: 3}
-  archerPrefab: {fileID: 408378283393866851, guid: a06fc0a3dbfecc245b31ad89bf773d88, type: 3}
+  towerSprite: {fileID: 21300000, guid: 24fae8af9e2a8494885fbc7d1954485a, type: 3}
+  archerPrefab: {fileID: 7407417386355732423, guid: 21c006f5bdde5284fac48008d1fec6dd, type: 3}
   towerName: BlueTower
-  damage: 10
-  attackSpeed: 10
-  range: 5
+  damage: 5
+  attackSpeed: 12
+  range: 7

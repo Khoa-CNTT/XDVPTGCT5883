@@ -3,7 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TowerData", menuName = "Scriptable Objects/TowerData")]
 public class TowerData : ScriptableObject
 {
-    public GameObject towerPrefab;
+    public Sprite towerSprite;
+    public GameObject archerPrefab;
     public string towerName;
     public float damage;
     public float attackSpeed;
