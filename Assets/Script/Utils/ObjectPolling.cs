@@ -5,42 +5,47 @@ namespace dang
 {
     public class ObjectPooling : MonoBehaviour
     {
-        public GameObject objectPrefab;
-        public int poolSize = 10;
+        [SerializeField] private GameObject prefab;
+        [SerializeField] private int poolSize = 10;
 
-        private Queue<GameObject> objectPool;
+        private List<GameObject> pool = new List<GameObject>();
+        private GameObject poolContainer;
 
         void Awake()
         {
-            objectPool = new Queue<GameObject>();
+            pool = new List<GameObject>();
+            poolContainer = new GameObject("Pool - " + prefab.name);
+
+            CreatePool();
+        }
+
+        private void CreatePool()
+        {
             for (int i = 0; i < poolSize; i++)
             {
-                GameObject obj = Instantiate(objectPrefab);
-                obj.SetActive(false);
-                objectPool.Enqueue(obj);
+                pool.Add(CreateInstance());
             }
         }
 
-        public GameObject GetObject()
+        private GameObject CreateInstance()
         {
-            if (objectPool.Count > 0)
-            {
-                GameObject obj = objectPool.Dequeue();
-                obj.SetActive(true);
-                return obj;
-            }
-            else
-            {
-                GameObject obj = Instantiate(objectPrefab);
-                obj.SetActive(true);
-                return obj;
-            }
+            GameObject instance = Instantiate(prefab);
+            instance.transform.SetParent(poolContainer.transform);
+            instance.SetActive(false);
+            return instance;
         }
 
-        public void ReturnObject(GameObject obj)
+        public GameObject GetInstanceFromPool()
         {
-            obj.SetActive(false);
-            objectPool.Enqueue(obj);
+            for (int i = 0; i < pool.Count; i++)
+            {
+                if (!pool[i].activeInHierarchy)
+                {
+                    return pool[i];
+                }
+            }
+
+            return CreateInstance();
         }
     }
 }
