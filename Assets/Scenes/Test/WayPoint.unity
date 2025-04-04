@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: -7, y: 3, z: 0}
+  - {x: -8, y: 4, z: 0}
   - {x: -3, y: -2.5, z: 0}
   - {x: 7, y: -4, z: 0}
 --- !u!1660057539 &9223372036854775807
