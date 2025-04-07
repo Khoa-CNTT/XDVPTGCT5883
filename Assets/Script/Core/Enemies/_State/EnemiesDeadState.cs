@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace dang
 {
     public class EnemiesDeadState : IState
     {
         private EnemiesController enemiesController;
+
+        public event UnityAction OnDead;
 
         public EnemiesDeadState(EnemiesController enemiesController)
         {
@@ -13,17 +16,17 @@ namespace dang
 
         public void Enter()
         {
-            Debug.Log("Enter Dead State");
+            enemiesController.animator.Play(EnumState.Dead.ToString());
         }
 
         public void StateUpdate()
         {
-            Debug.Log("Dead State Update");
+            OnDead?.Invoke();
         }
 
         public void Exit()
         {
-            Debug.Log("Exit Dead State");
+            enemiesController.gameObject.SetActive(false);
         }
     }
 }

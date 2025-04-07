@@ -19,6 +19,16 @@ namespace dang
             currentPosition = transform.position;
         }
 
+        public Vector3 GetWaypointPosition(int index)
+        {
+            if (index < 0 || index >= points.Length)
+            {
+                Debug.LogError("Index out of bounds for waypoints array.");
+                return Vector3.zero;
+            }
+            return points[index] + currentPosition;
+        }
+
         public void OnDrawGizmos()
         {
             if (!isGameStarted && transform.hasChanged)

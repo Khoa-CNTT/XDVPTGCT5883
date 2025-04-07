@@ -9,7 +9,7 @@ namespace dang
 
         [Header("Tower Attributes")]
         private List<Enemy> enemiesInRange;
-        public Enemy CurrentEnemyTarget { get; set; }
+        public Enemy CurrentEnemyTarget;
 
         void Start()
         {

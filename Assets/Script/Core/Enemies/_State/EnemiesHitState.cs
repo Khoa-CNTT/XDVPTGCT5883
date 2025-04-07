@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace dang
 {
     public class EnemiesHitState : IState
     {
         private EnemiesController enemiesController;
+        public event UnityAction OnHit;
 
         public EnemiesHitState(EnemiesController enemiesController)
         {
@@ -13,17 +15,17 @@ namespace dang
 
         public void Enter()
         {
-            Debug.Log("Enter Hit State");
+            enemiesController.animator.Play(EnumState.Hit.ToString());
         }
 
         public void StateUpdate()
         {
-            Debug.Log("Hit State Update");
+            OnHit?.Invoke();
         }
 
         public void Exit()
         {
-            Debug.Log("Exit Hit State");
+            enemiesController.animator.Play(EnumState.Walk.ToString());
         }
     }
 }

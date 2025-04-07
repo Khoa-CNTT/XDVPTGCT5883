@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &109448312
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -454,8 +454,8 @@ MonoBehaviour:
   PrefabToSpawn: {fileID: 408378283393866851, guid: a06fc0a3dbfecc245b31ad89bf773d88, type: 3}
   NumToSpawn: 10000
   SpawnZone: {fileID: 2100245207}
-  MinRadius: 5
-  MaxRadius: 5
+  MinRadius: 10
+  MaxRadius: 10
   On2DBoundsCalculated:
     m_PersistentCalls:
       m_Calls:
@@ -576,6 +576,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1887794934}
-  - {fileID: 109448315}
   - {fileID: 2100245210}
+  - {fileID: 109448315}
   - {fileID: 533677211}

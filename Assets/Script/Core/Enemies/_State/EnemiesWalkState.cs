@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace dang
 {
     public class EnimiesWalkState : IState
     {
         private EnemiesController enemiesController;
+        public event UnityAction OnMove;
 
         public EnimiesWalkState(EnemiesController enemiesController)
         {
@@ -13,17 +15,17 @@ namespace dang
 
         public void Enter()
         {
-            Debug.Log("Enter Walk State");
+            enemiesController.animator.Play(EnumState.Walk.ToString());
         }
 
         public void StateUpdate()
         {
-            Debug.Log("Enter Walk Update");
+            OnMove?.Invoke();
         }
 
         public void Exit()
         {
-            Debug.Log("Exit Walk State");
+            enemiesController.animator.Play(EnumState.Hit.ToString());
         }
     }
 }
