@@ -14,6 +14,7 @@ namespace dang
         [Header("Enemy Waypoint")]
         [SerializeField] private Waypoint waypoint;
         private int currentWaypointIndex;
+        private Vector3 CurrentPointPosition => waypoint.GetWaypointPosition(currentWaypointIndex);
 
         // ========================= Enemy State Machine ========================
         [Header("Enemy State Machine")]
@@ -28,7 +29,9 @@ namespace dang
         public void Start()
         {
             animator = GetComponent<Animator>();
+
             enemyStateMachine.ChangeState(EnumState.Walk);
+
             currentWaypointIndex = 0;
         }
 
@@ -37,10 +40,33 @@ namespace dang
             enemyStateMachine.Update();
         }
 
-        public void Move()
+        public void Walk()
         {
-            Vector3 currentPosition = waypoint.GetWaypointPosition(currentWaypointIndex);
-            transform.position = Vector3.MoveTowards(transform.position, currentPosition, runSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, CurrentPointPosition, runSpeed * Time.deltaTime);
+
+            if (currentPositionReached())
+            {
+                UpdateCurrntPointIndex();
+            }
+        }
+
+        private bool currentPositionReached()
+        {
+            float distanceToNextPointPosition = (transform.position - CurrentPointPosition).sqrMagnitude;
+            if (distanceToNextPointPosition < 0.1f)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void UpdateCurrntPointIndex()
+        {
+            int lastWaypintIndex = waypoint.Points.Length - 1;
+            if (currentWaypointIndex > lastWaypintIndex)
+            {
+                currentWaypointIndex++;
+            }
         }
 
         public void Hit()

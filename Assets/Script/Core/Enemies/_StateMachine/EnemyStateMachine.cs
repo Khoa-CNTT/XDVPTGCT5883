@@ -43,7 +43,7 @@ namespace dang
         {
             if (walkState is EnimiesWalkState WalkStateInstance)
             {
-                WalkStateInstance.OnMove += enemiesController.Move;
+                WalkStateInstance.OnMove += enemiesController.Walk;
             }
 
             if (hitState is EnemiesHitState HitStateInstance)
