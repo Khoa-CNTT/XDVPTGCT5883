@@ -8,12 +8,12 @@ namespace dang
         private Animator archerAnimator;
 
         [Header("Tower Attributes")]
-        private List<Enemy> enemiesInRange;
-        public Enemy CurrentEnemyTarget;
+        private List<EnemiesController> enemiesInRange;
+        public EnemiesController CurrentEnemyTarget;
 
         void Start()
         {
-            enemiesInRange = new List<Enemy>();
+            enemiesInRange = new List<EnemiesController>();
 
             archerAnimator = transform.Find("ArcherPos").GetComponentInChildren<Animator>();
             if (archerAnimator == null)
@@ -44,7 +44,7 @@ namespace dang
 
         void OnTriggerEnter2D(Collider2D collision)
         {
-            Enemy newEnemy = collision.GetComponent<Enemy>();
+            EnemiesController newEnemy = collision.GetComponent<EnemiesController>();
             if (collision.CompareTag("Enemy"))
             {
                 enemiesInRange.Add(newEnemy);
@@ -80,7 +80,7 @@ namespace dang
         {
             if (collision.CompareTag("Enemy"))
             {
-                Enemy enemy = collision.GetComponent<Enemy>();
+                EnemiesController enemy = collision.GetComponent<EnemiesController>();
                 if (enemiesInRange.Contains(enemy))
                 {
                     enemiesInRange.Remove(enemy);

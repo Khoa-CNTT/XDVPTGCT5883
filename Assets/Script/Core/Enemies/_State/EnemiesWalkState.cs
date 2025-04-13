@@ -5,17 +5,17 @@ namespace dang
 {
     public class EnimiesWalkState : IState
     {
-        private EnemiesController enemiesController;
+        private EnemyStateMachine statemachine;
         public event UnityAction OnMove;
 
-        public EnimiesWalkState(EnemiesController enemiesController)
+        public EnimiesWalkState(EnemyStateMachine statemachine)
         {
-            this.enemiesController = enemiesController;
+            this.statemachine = statemachine;
         }
 
         public void Enter()
         {
-            enemiesController.animator.Play(EnumState.Walk.ToString());
+            statemachine.enemiesController.animator.Play(EnumState.Run.ToString());
         }
 
         public void StateUpdate()
@@ -25,7 +25,6 @@ namespace dang
 
         public void Exit()
         {
-            enemiesController.animator.Play(EnumState.Hit.ToString());
         }
     }
 }

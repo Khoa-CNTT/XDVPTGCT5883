@@ -1,6 +1,6 @@
 namespace dang
 {
-    public class Tower
+    public struct Tower
     {
         public float attackDamage;
         public float attackRange;

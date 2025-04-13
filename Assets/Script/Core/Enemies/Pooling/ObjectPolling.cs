@@ -5,7 +5,7 @@ namespace dang
 {
     public class ObjectPooling : MonoBehaviour
     {
-        [SerializeField] private GameObject prefab;
+        [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private int poolSize = 10;
 
         private List<GameObject> pool = new List<GameObject>();
@@ -14,7 +14,7 @@ namespace dang
         void Awake()
         {
             pool = new List<GameObject>();
-            poolContainer = new GameObject("Pool - " + prefab.name);
+            poolContainer = new GameObject("Pool - " + enemyPrefab.name);
 
             CreatePool();
         }
@@ -29,7 +29,7 @@ namespace dang
 
         private GameObject CreateInstance()
         {
-            GameObject instance = Instantiate(prefab);
+            GameObject instance = Instantiate(enemyPrefab);
             instance.transform.SetParent(poolContainer.transform);
             instance.SetActive(false);
             return instance;
@@ -46,6 +46,14 @@ namespace dang
             }
 
             return CreateInstance();
+        }
+
+        public static void ReturnToPool(GameObject instance)
+        {
+            if (instance != null)
+            {
+                instance.SetActive(false);
+            }
         }
     }
 }

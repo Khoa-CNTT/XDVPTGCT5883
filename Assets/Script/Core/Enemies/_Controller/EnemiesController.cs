@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace dang
 {
@@ -8,11 +10,17 @@ namespace dang
         [Header("Enemy Stats")]
         public string entityType = "Blue";
         public int maxHealth = 100;
-        public float runSpeed = 1f;
+        public float moveSpeed = 1f;
+        public float MoveSpeed { get; set; }
+        public static event UnityAction OnEndReached;
+        private EnemyHealth enemyHealth;
+        private ObjectPooling pool;
 
         // ========================= Enemy Waypoint ========================
         [Header("Enemy Waypoint")]
-        [SerializeField] private Waypoint waypoint;
+
+        public Waypoint waypoint { get; set; }
+
         private int currentWaypointIndex;
         private Vector3 CurrentPointPosition => waypoint.GetWaypointPosition(currentWaypointIndex);
 
@@ -28,9 +36,12 @@ namespace dang
 
         public void Start()
         {
-            animator = GetComponent<Animator>();
 
-            enemyStateMachine.ChangeState(EnumState.Walk);
+            animator = GetComponent<Animator>();
+            enemyHealth = GetComponent<EnemyHealth>();
+            pool = FindAnyObjectByType<ObjectPooling>();
+
+            MoveSpeed = moveSpeed;
 
             currentWaypointIndex = 0;
         }
@@ -38,19 +49,25 @@ namespace dang
         public void Update()
         {
             enemyStateMachine.Update();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                enemyHealth.DealDamage(5f);
+            }
+            enemyHealth.CalculateHealth();
         }
 
         public void Walk()
         {
-            transform.position = Vector3.MoveTowards(transform.position, CurrentPointPosition, runSpeed * Time.deltaTime);
+            enemyStateMachine.ChangeState(EnumState.Run);
+            transform.position = Vector3.MoveTowards(transform.position, CurrentPointPosition, MoveSpeed * Time.deltaTime);
 
-            if (currentPositionReached())
+            if (CurrentPositionReached())
             {
                 UpdateCurrntPointIndex();
             }
         }
 
-        private bool currentPositionReached()
+        private bool CurrentPositionReached()
         {
             float distanceToNextPointPosition = (transform.position - CurrentPointPosition).sqrMagnitude;
             if (distanceToNextPointPosition < 0.1f)
@@ -62,21 +79,58 @@ namespace dang
 
         private void UpdateCurrntPointIndex()
         {
-            int lastWaypintIndex = waypoint.Points.Length - 1;
-            if (currentWaypointIndex > lastWaypintIndex)
+            int lastWaypointIndex = waypoint.Points.Length - 1;
+            if (currentWaypointIndex < lastWaypointIndex)
             {
                 currentWaypointIndex++;
             }
+
+            else if (currentWaypointIndex == lastWaypointIndex)
+            {
+                EndPointReached();
+            }
+        }
+
+        private void EndPointReached()
+        {
+            OnEndReached?.Invoke();
+            enemyHealth.ResetHealth();
+            ObjectPooling.ReturnToPool(gameObject);
+        }
+
+        public void StopMovement()
+        {
+            MoveSpeed = 0f;
+        }
+
+        public void ResumeMOvement()
+        {
+            MoveSpeed = moveSpeed;
         }
 
         public void Hit()
         {
+            StartCoroutine(HitCoroutine());
+        }
 
+        private IEnumerator HitCoroutine()
+        {
+            enemyStateMachine.ChangeState(EnumState.Hit);
+            StopMovement();
+            yield return new WaitForSeconds(0.5f);
+            Walk();
         }
 
         public void Dead()
         {
+            if (!enemyHealth.isDead) return;
+            else
+                enemyStateMachine.ChangeState(EnumState.Dead);
+        }
 
+        public void ResetEnemy()
+        {
+            currentWaypointIndex = 0;
         }
     }
 }

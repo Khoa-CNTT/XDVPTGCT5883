@@ -2,7 +2,7 @@ namespace dang
 {
     public enum EnumState
     {
-        Walk,
+        Run,
         Hit,
         Dead
     }
@@ -14,7 +14,7 @@ namespace dang
         private IState deadState;
         private IState currentState;
 
-        EnemiesController enemiesController;
+        public EnemiesController enemiesController;
 
         public EnemyStateMachine(EnemiesController enemiesController)
         {
@@ -27,9 +27,9 @@ namespace dang
 
         private void InitializeStates()
         {
-            walkState = new EnimiesWalkState(this.enemiesController);
-            hitState = new EnemiesHitState(this.enemiesController);
-            deadState = new EnemiesDeadState(this.enemiesController);
+            walkState = new EnimiesWalkState(this);
+            hitState = new EnemiesHitState(this);
+            deadState = new EnemiesDeadState(this);
 
             currentState = walkState;
 
@@ -62,7 +62,7 @@ namespace dang
             IState newState = null;
             switch (EnewEState)
             {
-                case EnumState.Walk:
+                case EnumState.Run:
                     newState = walkState;
                     break;
                 case EnumState.Hit:

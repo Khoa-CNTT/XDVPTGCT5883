@@ -5,18 +5,20 @@ namespace dang
 {
     public class EnemiesDeadState : IState
     {
-        private EnemiesController enemiesController;
+        private EnemyStateMachine statemachine;
 
         public event UnityAction OnDead;
 
-        public EnemiesDeadState(EnemiesController enemiesController)
+        public EnemiesDeadState(EnemyStateMachine statemachine)
         {
-            this.enemiesController = enemiesController;
+            this.statemachine = statemachine;
         }
 
         public void Enter()
         {
-            enemiesController.animator.Play(EnumState.Dead.ToString());
+            statemachine.enemiesController.animator.Play(EnumState.Dead.ToString());
+            statemachine.enemiesController.animator.GetCurrentAnimatorStateInfo(0).length.Equals(0);
+            statemachine.enemiesController.animator.Play("Buried");
         }
 
         public void StateUpdate()
@@ -26,7 +28,7 @@ namespace dang
 
         public void Exit()
         {
-            enemiesController.gameObject.SetActive(false);
+            statemachine.enemiesController.gameObject.SetActive(false);
         }
     }
 }

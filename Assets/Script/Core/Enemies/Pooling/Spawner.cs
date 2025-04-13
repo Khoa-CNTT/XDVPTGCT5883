@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum SpawnModes
@@ -13,6 +14,7 @@ namespace dang
         [Header("Settings")]
         [SerializeField] private SpawnModes spawnMode = SpawnModes.Fixed;
         [SerializeField] private int enemyCount = 10;
+        [SerializeField] private float delayBtwWaves = 1f;
 
         [Header("Fixed Mode")]
         [SerializeField] private float delayBtwSpawns;
@@ -23,12 +25,17 @@ namespace dang
 
         private float spawnerTimer;
         private int enemySpawned;
+        private int enemyRemaining;
 
         private ObjectPooling pool;
+        private Waypoint _waypoint;
 
         void Start()
         {
             pool = GetComponent<ObjectPooling>();
+            _waypoint = GetComponent<Waypoint>();
+
+            enemyRemaining = enemyCount;
         }
 
         void Update()
@@ -48,6 +55,10 @@ namespace dang
         private void SpawnEnemy()
         {
             GameObject newInstance = pool.GetInstanceFromPool();
+            EnemiesController enemiesController = newInstance.GetComponent<EnemiesController>();
+            enemiesController.ResetEnemy();
+            enemiesController.waypoint = _waypoint;
+            enemiesController.transform.localPosition = transform.position;
             newInstance.SetActive(true);
         }
 
@@ -70,6 +81,35 @@ namespace dang
         {
             float radomTimer = Random.Range(minRandomDelay, maxRandomDelay);
             return radomTimer;
+        }
+
+        private IEnumerator NextWave()
+        {
+            yield return new WaitForSeconds(delayBtwWaves);
+            enemyRemaining = enemyCount;
+            spawnerTimer = 0f;
+            enemySpawned = 0;
+        }
+
+        private void RecordEnemy()
+        {
+            enemyRemaining--;
+            if (enemyRemaining <= 0)
+            {
+                StartCoroutine(NextWave());
+            }
+        }
+
+        void OnEnable()
+        {
+            EnemiesController.OnEndReached += RecordEnemy;
+            EnemyHealth.OnEnemyKilled += RecordEnemy;
+        }
+
+        void OnDisable()
+        {
+            EnemiesController.OnEndReached -= RecordEnemy;
+            EnemyHealth.OnEnemyKilled -= RecordEnemy;
         }
     }
 }

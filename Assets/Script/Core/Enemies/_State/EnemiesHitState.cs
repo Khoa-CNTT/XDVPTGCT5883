@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,17 +6,17 @@ namespace dang
 {
     public class EnemiesHitState : IState
     {
-        private EnemiesController enemiesController;
+        private EnemyStateMachine statemachine;
         public event UnityAction OnHit;
 
-        public EnemiesHitState(EnemiesController enemiesController)
+        public EnemiesHitState(EnemyStateMachine statemachine)
         {
-            this.enemiesController = enemiesController;
+            this.statemachine = statemachine;
         }
 
         public void Enter()
         {
-            enemiesController.animator.Play(EnumState.Hit.ToString());
+
         }
 
         public void StateUpdate()
@@ -25,7 +26,7 @@ namespace dang
 
         public void Exit()
         {
-            enemiesController.animator.Play(EnumState.Walk.ToString());
+
         }
     }
 }

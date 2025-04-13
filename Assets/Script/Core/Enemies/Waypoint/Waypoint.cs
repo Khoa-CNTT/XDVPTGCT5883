@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace dang
 {
-
     public class Waypoint : MonoBehaviour
     {
         [SerializeField] private Vector3[] points;
