@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
     public static event UnityAction OnEnemyKilled;
-    public static event UnityAction<EnemiesController> OnEnemyHit;
 
     [SerializeField] private GameObject HealthBarPrefab;
     [SerializeField] private Transform barPosition;
@@ -28,15 +27,6 @@ public class EnemyHealth : MonoBehaviour
 
         enemiesController = GetComponent<EnemiesController>();
     }
-
-    // void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Space))
-    //     {
-    //         DealDamage(5f);
-    //     }
-    //     CalculateHealth();
-    // }
 
     public void CalculateHealth()
     {
@@ -61,23 +51,28 @@ public class EnemyHealth : MonoBehaviour
             CurrentHealth = 0;
             Die();
         }
-        else
-        {
-            OnEnemyHit?.Invoke(enemiesController);
-        }
+    }
+
+    private void ShowHealthBar(bool show)
+    {
+        if (barPosition != null)
+            barPosition.gameObject.SetActive(show);
     }
 
     public void ResetHealth()
     {
+        if (healthBar == null) return;
+
         CurrentHealth = initialHealth;
         healthBar.fillAmount = 1f;
+        ShowHealthBar(true);
     }
 
     private void Die()
     {
-        ResetHealth();
+        ShowHealthBar(false);
         OnEnemyKilled?.Invoke();
-        ObjectPooling.ReturnToPool(gameObject);
-        isDead = true;
+        enemiesController.Dead();
     }
+
 }

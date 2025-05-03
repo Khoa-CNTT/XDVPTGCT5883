@@ -1,32 +1,43 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace dang
 {
     public class EnemiesHitState : IState
     {
-        private EnemyStateMachine statemachine;
-        public event UnityAction OnHit;
+        private EnemyStateMachine stateMachine;
+        private EnemiesController controller;
+        private float hitDuration = 0.5f;
+        private float timer;
+        private bool hasChangedState = false;
 
-        public EnemiesHitState(EnemyStateMachine statemachine)
+        public EnemiesHitState(EnemyStateMachine stateMachine, EnemiesController controller)
         {
-            this.statemachine = statemachine;
+            this.stateMachine = stateMachine;
+            this.controller = controller;
         }
 
         public void Enter()
         {
-
+            timer = 0;
+            hasChangedState = false;
+            controller.StopMovement();
         }
 
         public void StateUpdate()
         {
-            OnHit?.Invoke();
+            if (hasChangedState) return;
+
+            timer += Time.deltaTime;
+
+            if (timer >= hitDuration)
+            {
+                hasChangedState = true;
+                stateMachine.ChangeState(EnumState.Run);
+            }
         }
 
         public void Exit()
         {
-
         }
     }
 }

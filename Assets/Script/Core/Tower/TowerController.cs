@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +10,13 @@ namespace dang
 
         [Header("Tower Attributes")]
         private List<EnemiesController> enemiesInRange;
-        public EnemiesController CurrentEnemyTarget;
+        [HideInInspector] public EnemiesController CurrentEnemyTarget;
 
-        void Start()
+        IEnumerator Start()
         {
             enemiesInRange = new List<EnemiesController>();
 
+            yield return null;
             archerAnimator = transform.Find("ArcherPos").GetComponentInChildren<Animator>();
             if (archerAnimator == null)
             {

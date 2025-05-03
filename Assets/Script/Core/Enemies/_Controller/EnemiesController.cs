@@ -14,6 +14,7 @@ namespace dang
         public float MoveSpeed { get; set; }
         public static event UnityAction OnEndReached;
         private EnemyHealth enemyHealth;
+        private SpriteRenderer spriteRenderer;
         private ObjectPooling pool;
 
         // ========================= Enemy Waypoint ========================
@@ -22,6 +23,7 @@ namespace dang
         public Waypoint waypoint { get; set; }
 
         private int currentWaypointIndex;
+        private Vector3 lastPointPos;
         private Vector3 CurrentPointPosition => waypoint.GetWaypointPosition(currentWaypointIndex);
 
         // ========================= Enemy State Machine ========================
@@ -36,34 +38,51 @@ namespace dang
 
         public void Start()
         {
-
             animator = GetComponent<Animator>();
             enemyHealth = GetComponent<EnemyHealth>();
             pool = FindAnyObjectByType<ObjectPooling>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
 
             MoveSpeed = moveSpeed;
 
             currentWaypointIndex = 0;
+
+            lastPointPos = transform.position;
         }
 
         public void Update()
         {
             enemyStateMachine.Update();
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                Hit();
                 enemyHealth.DealDamage(5f);
             }
+
             enemyHealth.CalculateHealth();
         }
 
-        public void Walk()
+        public void Run()
         {
-            enemyStateMachine.ChangeState(EnumState.Run);
             transform.position = Vector3.MoveTowards(transform.position, CurrentPointPosition, MoveSpeed * Time.deltaTime);
+            RotateSprite();
 
             if (CurrentPositionReached())
             {
                 UpdateCurrntPointIndex();
+            }
+        }
+
+        public void RotateSprite()
+        {
+            if (CurrentPointPosition.x > lastPointPos.x)
+            {
+                spriteRenderer.flipX = false;
+            }
+            else
+            {
+                spriteRenderer.flipX = true;
             }
         }
 
@@ -72,6 +91,7 @@ namespace dang
             float distanceToNextPointPosition = (transform.position - CurrentPointPosition).sqrMagnitude;
             if (distanceToNextPointPosition < 0.1f)
             {
+                lastPointPos = transform.position;
                 return true;
             }
             return false;
@@ -103,33 +123,24 @@ namespace dang
             MoveSpeed = 0f;
         }
 
-        public void ResumeMOvement()
+        public void ResumeMovement()
         {
             MoveSpeed = moveSpeed;
         }
 
         public void Hit()
         {
-            StartCoroutine(HitCoroutine());
-        }
-
-        private IEnumerator HitCoroutine()
-        {
             enemyStateMachine.ChangeState(EnumState.Hit);
-            StopMovement();
-            yield return new WaitForSeconds(0.5f);
-            Walk();
         }
 
         public void Dead()
         {
-            if (!enemyHealth.isDead) return;
-            else
-                enemyStateMachine.ChangeState(EnumState.Dead);
+            enemyStateMachine.ChangeState(EnumState.Dead);
         }
 
         public void ResetEnemy()
         {
+            enemyStateMachine.ChangeState(EnumState.Run);
             currentWaypointIndex = 0;
         }
     }

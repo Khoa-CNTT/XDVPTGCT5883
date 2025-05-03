@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace dang
 {
     public enum EnumState
@@ -7,72 +9,28 @@ namespace dang
         Dead
     }
 
-    public class EnemyStateMachine : IStateMachine
+    public class EnemyStateMachine : MonoBehaviour, IStateMachine
     {
-        private IState walkState;
-        private IState hitState;
-        private IState deadState;
         private IState currentState;
+        public EnemiesController Controller { get; }
+        public EnimiesWalkState WalkState { get; private set; }
+        public EnemiesHitState HitState { get; private set; }
+        public EnemiesDeadState DeadState { get; private set; }
 
-        public EnemiesController enemiesController;
-
-        public EnemyStateMachine(EnemiesController enemiesController)
+        public EnemyStateMachine(EnemiesController controller)
         {
-            this.enemiesController = enemiesController;
+            this.Controller = controller;
 
-            InitializeStates();
+            WalkState = new EnimiesWalkState(this, controller);
+            HitState = new EnemiesHitState(this, controller);
+            DeadState = new EnemiesDeadState(this, controller);
 
-            RegisterEvent();
+            var initState = EnumState.Run;
+            ChangeState(initState);
         }
 
-        private void InitializeStates()
+        public void NewState(IState newState)
         {
-            walkState = new EnimiesWalkState(this);
-            hitState = new EnemiesHitState(this);
-            deadState = new EnemiesDeadState(this);
-
-            currentState = walkState;
-
-            if (currentState != null)
-            {
-                currentState.Enter();
-            }
-        }
-
-        private void RegisterEvent()
-        {
-            if (walkState is EnimiesWalkState WalkStateInstance)
-            {
-                WalkStateInstance.OnMove += enemiesController.Walk;
-            }
-
-            if (hitState is EnemiesHitState HitStateInstance)
-            {
-                HitStateInstance.OnHit += enemiesController.Hit;
-            }
-
-            if (deadState is EnemiesDeadState DeadStateInstance)
-            {
-                DeadStateInstance.OnDead += enemiesController.Dead;
-            }
-        }
-
-        public void ChangeState(EnumState EnewEState)
-        {
-            IState newState = null;
-            switch (EnewEState)
-            {
-                case EnumState.Run:
-                    newState = walkState;
-                    break;
-                case EnumState.Hit:
-                    newState = hitState;
-                    break;
-                case EnumState.Dead:
-                    newState = deadState;
-                    break;
-            }
-
             if (newState == currentState) return;
 
             currentState?.Exit();
@@ -80,9 +38,25 @@ namespace dang
             currentState.Enter();
         }
 
+        public void ChangeState(EnumState newEnumState)
+        {
+            switch (newEnumState)
+            {
+                case EnumState.Run:
+                    NewState(WalkState);
+                    break;
+                case EnumState.Hit:
+                    NewState(HitState);
+                    break;
+                case EnumState.Dead:
+                    NewState(DeadState);
+                    break;
+            }
+        }
+
         public void Update()
         {
-            currentState.StateUpdate();
+            currentState?.StateUpdate();
         }
     }
 }

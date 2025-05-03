@@ -8,6 +8,16 @@ namespace dang
 
         public int TotalLives { get; set; }
 
+        void OnEnable()
+        {
+            EnemiesController.OnEndReached += ReduceLives;
+        }
+
+        void OnDisable()
+        {
+            EnemiesController.OnEndReached -= ReduceLives;
+        }
+
         void Start()
         {
             TotalLives = live;
@@ -21,16 +31,6 @@ namespace dang
             {
                 TotalLives = 0;
             }
-        }
-
-        void OnEnable()
-        {
-            EnemiesController.OnEndReached += ReduceLives;
-        }
-
-        void OnDisable()
-        {
-            EnemiesController.OnEndReached -= ReduceLives;
         }
     }
 }

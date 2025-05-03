@@ -30,6 +30,18 @@ namespace dang
         private ObjectPooling pool;
         private Waypoint _waypoint;
 
+        void OnEnable()
+        {
+            EnemiesController.OnEndReached += RecordEnemy;
+            EnemyHealth.OnEnemyKilled += RecordEnemy;
+        }
+
+        void OnDisable()
+        {
+            EnemiesController.OnEndReached -= RecordEnemy;
+            EnemyHealth.OnEnemyKilled -= RecordEnemy;
+        }
+
         void Start()
         {
             pool = GetComponent<ObjectPooling>();
@@ -56,10 +68,12 @@ namespace dang
         {
             GameObject newInstance = pool.GetInstanceFromPool();
             EnemiesController enemiesController = newInstance.GetComponent<EnemiesController>();
+            EnemyHealth enemyHealth = newInstance.GetComponent<EnemyHealth>();
             enemiesController.ResetEnemy();
             enemiesController.waypoint = _waypoint;
             enemiesController.transform.localPosition = transform.position;
             newInstance.SetActive(true);
+            enemyHealth.ResetHealth();
         }
 
         private float GetSpawnDelay()
@@ -98,18 +112,6 @@ namespace dang
             {
                 StartCoroutine(NextWave());
             }
-        }
-
-        void OnEnable()
-        {
-            EnemiesController.OnEndReached += RecordEnemy;
-            EnemyHealth.OnEnemyKilled += RecordEnemy;
-        }
-
-        void OnDisable()
-        {
-            EnemiesController.OnEndReached -= RecordEnemy;
-            EnemyHealth.OnEnemyKilled -= RecordEnemy;
         }
     }
 }

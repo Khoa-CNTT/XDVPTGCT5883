@@ -1,34 +1,46 @@
 using UnityEngine;
-using UnityEngine.Events;
+using System.Collections;
 
 namespace dang
 {
     public class EnemiesDeadState : IState
     {
-        private EnemyStateMachine statemachine;
+        private EnemyStateMachine stateMachine;
+        private EnemiesController controller;
 
-        public event UnityAction OnDead;
-
-        public EnemiesDeadState(EnemyStateMachine statemachine)
+        public EnemiesDeadState(EnemyStateMachine stateMachine, EnemiesController controller)
         {
-            this.statemachine = statemachine;
+            this.stateMachine = stateMachine;
+            this.controller = controller;
         }
 
         public void Enter()
         {
-            statemachine.enemiesController.animator.Play(EnumState.Dead.ToString());
-            statemachine.enemiesController.animator.GetCurrentAnimatorStateInfo(0).length.Equals(0);
-            statemachine.enemiesController.animator.Play("Buried");
+            controller.StopMovement();
+            controller.StartCoroutine(DeathSequence());
         }
 
-        public void StateUpdate()
-        {
-            OnDead?.Invoke();
-        }
+        public void StateUpdate() { }
 
         public void Exit()
         {
-            statemachine.enemiesController.gameObject.SetActive(false);
+        }
+
+        private IEnumerator DeathSequence()
+        {
+            controller.animator.Play(EnumState.Dead.ToString());
+            yield return new WaitUntil(() =>
+                controller.animator.GetCurrentAnimatorStateInfo(0).IsName(EnumState.Dead.ToString()) &&
+                controller.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f
+            );
+
+            controller.animator.Play("Buried");
+            yield return new WaitUntil(() =>
+                controller.animator.GetCurrentAnimatorStateInfo(0).IsName("Buried") &&
+                controller.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f
+            );
+
+            ObjectPooling.ReturnToPool(controller.gameObject);
         }
     }
 }
