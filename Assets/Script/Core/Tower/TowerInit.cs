@@ -13,10 +13,8 @@ namespace dang
         private SpriteRenderer archerSpriteRenderer;
         private string towerName;
         private float towerDamage;
-        private float towerAttackSpeed;
+        public float towerAttackSpeed;
         private float towerAttackRange;
-
-
 
         void Start()
         {
@@ -61,9 +59,6 @@ namespace dang
 
             GetComponent<CircleCollider2D>().radius = towerAttackRange;
         }
-
-
-
 
         void OnDrawGizmos()
         {
