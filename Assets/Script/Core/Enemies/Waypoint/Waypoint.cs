@@ -9,6 +9,9 @@ namespace dang
         public Vector3[] Points => points;
         public Vector3 CurrentPosition => currentPosition;
 
+        [Range(0.01f, 1f)]
+        public float SnapValue = 0.1f; // <-- Thêm dòng này
+
         private Vector3 currentPosition;
         private bool isGameStarted;
 

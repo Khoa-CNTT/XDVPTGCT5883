@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: df6409bb11761f546900c927370b4820, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56cb6dbd84dbeac4fa501354c4737759, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2791f2fd019266743a3cc5b585a02c49, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50cf95ce2f920174697f71b94e82e0d5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -222,13 +222,14 @@ GameObject:
   - component: {fileID: 1078160883750814322}
   - component: {fileID: 6070296364499906912}
   - component: {fileID: 773485069357324389}
+  - component: {fileID: 2978349818540182866}
   m_Layer: 5
   m_Name: Setting Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2728865047242669098
 RectTransform:
   m_ObjectHideFlags: 0
@@ -299,9 +300,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38e68019a953429564845ad2b0881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManagerEvents: {fileID: 0}
   audioButton: {fileID: 1779994208258961453}
   musicButton: {fileID: 724481735110203657}
+--- !u!225 &2978349818540182866
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6446464450974988360}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7639750026279911712
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +380,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 39a5c043af50ccb4ca1beece45f60b3b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5495f7645ebea5847b897871434d676a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -500,7 +512,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 35633e311c879164c8997663a3d0d0eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5e5125556d7b23049aa0e079e4d1fd4e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

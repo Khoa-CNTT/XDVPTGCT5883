@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6033404030956429273}
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 478944735
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -1128137312793566775, guid: 789c2f1384cf94a45a6f3f8aa747f007, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -129,6 +129,7 @@ MonoBehaviour:
   maxHealth: 100
   moveSpeed: 6
   animator: {fileID: 2959351399144464590}
+  enemyStateMachine: {fileID: 0}
 --- !u!114 &8008994332270457467
 MonoBehaviour:
   m_ObjectHideFlags: 0

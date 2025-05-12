@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 4533289517413364583}
   - component: {fileID: 3706627131700162472}
   - component: {fileID: 3358015185267669115}
+  - component: {fileID: 3842305546213194531}
   m_Layer: 5
   m_Name: Game Save Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8236690695338365982
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26,7 +27,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41165884559831158}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -92,7 +93,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ece42ebbd49d934eb574190bde35c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManagerEvents: {fileID: 0}
+  newGameSceneIndex: 1
+  delayBeforeLoading: 0.5
+--- !u!225 &3842305546213194531
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41165884559831158}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &336342229621911517
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7fb624c4aa8856d4191f78b8965222fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3f2a527cbccaf8409cb3513cd0eacf8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -214,7 +228,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7005046850175155498}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3358015185267669115}
+        m_TargetAssemblyTypeName: NewGameHandler, Assembly-CSharp
+        m_MethodName: OnSelectSlotButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &729691171967197122
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7fb624c4aa8856d4191f78b8965222fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3f2a527cbccaf8409cb3513cd0eacf8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -744,7 +770,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5160310542660034684}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3358015185267669115}
+        m_TargetAssemblyTypeName: NewGameHandler, Assembly-CSharp
+        m_MethodName: OnSelectSlotButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4838834014756056419
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,7 +987,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7fb624c4aa8856d4191f78b8965222fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3f2a527cbccaf8409cb3513cd0eacf8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1002,7 +1040,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1335246266917323232}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3358015185267669115}
+        m_TargetAssemblyTypeName: NewGameHandler, Assembly-CSharp
+        m_MethodName: OnSelectSlotButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5499222358816278265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2791f2fd019266743a3cc5b585a02c49, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50cf95ce2f920174697f71b94e82e0d5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -70,7 +70,7 @@ namespace dang
 
             if (CurrentPositionReached())
             {
-                UpdateCurrntPointIndex();
+                UpdateCurrentPointIndex();
             }
         }
 
@@ -97,7 +97,7 @@ namespace dang
             return false;
         }
 
-        private void UpdateCurrntPointIndex()
+        private void UpdateCurrentPointIndex()
         {
             int lastWaypointIndex = waypoint.Points.Length - 1;
             if (currentWaypointIndex < lastWaypointIndex)

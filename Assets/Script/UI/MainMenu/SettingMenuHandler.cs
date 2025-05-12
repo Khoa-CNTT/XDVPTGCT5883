@@ -1,27 +1,26 @@
 using UnityEngine;
-using UnityEngine.UI; // Import UI namespace
+using UnityEngine.UI;
 
-public class SettingMenuHandler : MonoBehaviour
+public class SettingMenuHandler : MonoBehaviour, IBaseUI
 {
-    public UIManagerEvents uiManagerEvents;
     public Button audioButton;
     public Button musicButton;
+    private CanvasGroup canvasGroup;
 
     private bool isDimmedAudio = false;
     private bool isDimmedMusic = false;
 
-    public void Start()
+    void Start()
     {
-        if (uiManagerEvents == null)
-        {
-            Debug.LogError("UIManagerEvents is not set in Setting Menu");
-            return;
-        }
+        canvasGroup = GetComponent<CanvasGroup>();
+
+        UIManagerEvents.Instance?.OnOpenSettingMenu.AddListener(Open);
+        UIManagerEvents.Instance?.OnCloseSettingMenu.AddListener(Close);
     }
 
     public void OnExitButtonClick()
     {
-        uiManagerEvents.OnCloseSettingMenu?.Invoke();
+        UIManagerEvents.Instance?.OnCloseSettingMenu?.Invoke();
     }
 
     public void OnAudioButtonClick()
@@ -63,5 +62,25 @@ public class SettingMenuHandler : MonoBehaviour
         }
 
         return !isDimmed;
+    }
+
+    public void Open()
+    {
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 1f;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
+    }
+
+    public void Close()
+    {
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 0f;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+        }
     }
 }

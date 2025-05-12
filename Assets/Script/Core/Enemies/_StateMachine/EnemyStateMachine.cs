@@ -29,7 +29,7 @@ namespace dang
             ChangeState(initState);
         }
 
-        public void NewState(IState newState)
+        public void State(IState newState)
         {
             if (newState == currentState) return;
 
@@ -43,13 +43,13 @@ namespace dang
             switch (newEnumState)
             {
                 case EnumState.Run:
-                    NewState(WalkState);
+                    State(WalkState);
                     break;
                 case EnumState.Hit:
-                    NewState(HitState);
+                    State(HitState);
                     break;
                 case EnumState.Dead:
-                    NewState(DeadState);
+                    State(DeadState);
                     break;
             }
         }

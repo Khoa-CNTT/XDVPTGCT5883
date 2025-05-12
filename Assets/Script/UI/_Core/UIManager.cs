@@ -1,37 +1,24 @@
+using System.Collections;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance { get; private set; }
-    public UIManagerEvents uiManagerEvents;
-
-    private void Awake()
+    IEnumerator Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-    }
-
-    void OnEnable()
-    {
+        yield return new WaitForEndOfFrame();
         CloseAllScene();
+        OpenMainMenu();
     }
 
-    public void Start()
+    public void OpenMainMenu()
     {
-        ShowMainMenu();
+        UIManagerEvents.Instance?.OnOpenMainMenu?.Invoke();
     }
 
     public void CloseAllScene()
     {
-        uiManagerEvents.OnCloseMainMenu?.Invoke();
-        uiManagerEvents.OnCloseSettingMenu?.Invoke();
-        uiManagerEvents.OnCloseNewGameMenu?.Invoke();
-    }
-
-    public void ShowMainMenu()
-    {
-        uiManagerEvents.OnOpenMainMenu?.Invoke();
+        UIManagerEvents.Instance?.OnCloseMainMenu?.Invoke();
+        UIManagerEvents.Instance?.OnCloseSettingMenu?.Invoke();
+        UIManagerEvents.Instance?.OnCloseNewGameMenu?.Invoke();
     }
 }

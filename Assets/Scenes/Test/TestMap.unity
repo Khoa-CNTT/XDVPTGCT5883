@@ -148,9 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843f1353dd7e6344fbc61169677e574c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 40
+  mapWidth: 35
   mapHeight: 20
-  tileReference: {fileID: 3196926668575079405, guid: 3fb86f32c032b3f4d8465749f291b2a7, type: 3}
+  tileReference: {fileID: 2667133632832263406, guid: c88d4a22cba7c584fa6f74030ebbba71, type: 3}
   emptyTile: {fileID: 1887937451, guid: cf4c4062886a28a4da894ba846ba7827, type: 3}
   downPath: {fileID: -1015066621, guid: cf4c4062886a28a4da894ba846ba7827, type: 3}
   leftRight: {fileID: -673600978, guid: cf4c4062886a28a4da894ba846ba7827, type: 3}
@@ -158,6 +158,27 @@ MonoBehaviour:
   rightDown: {fileID: -1327614825, guid: cf4c4062886a28a4da894ba846ba7827, type: 3}
   downLeft: {fileID: 4868620959846413278, guid: cf4c4062886a28a4da894ba846ba7827, type: 3}
   downRight: {fileID: 797515182108214736, guid: cf4c4062886a28a4da894ba846ba7827, type: 3}
+  decorationSprites:
+  - {fileID: 21300000, guid: 878d7f4988bfd9e41a4c88741c731a58, type: 3}
+  - {fileID: 21300000, guid: 8b874168b3e778a48ab1058a8325851d, type: 3}
+  - {fileID: 21300000, guid: 285f694a6283d57449de4660868d9873, type: 3}
+  - {fileID: 21300000, guid: e7c7fe243e5db37449361ad6524689ef, type: 3}
+  - {fileID: 21300000, guid: c7521a3073976b94a9f5e8c1bf4bf26e, type: 3}
+  - {fileID: 21300000, guid: 525facde005746a4a91fa0350e18d6f9, type: 3}
+  - {fileID: 21300000, guid: d0fba25bd8353ce4e9bc85390662fc05, type: 3}
+  - {fileID: 21300000, guid: 22816a5bea1598947a84fc2d16431b71, type: 3}
+  - {fileID: 21300000, guid: e175ab916ecdd2f4a8b342c575de07f6, type: 3}
+  - {fileID: 21300000, guid: dbaeb0b334ac4534781eb217403d8ac9, type: 3}
+  - {fileID: 21300000, guid: 83c91dae4ad7cc2468894a412166b783, type: 3}
+  - {fileID: 21300000, guid: 8e6316b222bc1cf459900f13ea437da1, type: 3}
+  - {fileID: 21300000, guid: 62077faef9d8dc04da6793f1c98cc005, type: 3}
+  - {fileID: 21300000, guid: e2c5ef06363d4bc4382471446cc10d46, type: 3}
+  - {fileID: 21300000, guid: e135772f4847c87469b7bd2d2b2a4220, type: 3}
+  - {fileID: 21300000, guid: db872ae15fb6c274982efc6a3590a053, type: 3}
+  - {fileID: 21300000, guid: 4ade204122d8cbb45b25d9f1fdfde972, type: 3}
+  - {fileID: 21300000, guid: 52a052d591d4a9e45aea0a3d828fdd6b, type: 3}
+  treePrefabs:
+  - {fileID: -2253911629886400664, guid: 163d60fa330a7b645972a0f33a9a267c, type: 3}
 --- !u!4 &124639137
 Transform:
   m_ObjectHideFlags: 0
