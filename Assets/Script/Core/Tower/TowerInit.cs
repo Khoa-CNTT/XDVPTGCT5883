@@ -11,10 +11,10 @@ namespace dang
         [SerializeField] private GameObject archerPos;
         private GameObject archerPrefab;
         private SpriteRenderer archerSpriteRenderer;
-        private string towerName;
-        private float towerDamage;
-        public float towerAttackSpeed;
-        private float towerAttackRange;
+        public string towerName { get; set; }
+        public float towerDamage { get; set; }
+        public float towerAttackSpeed { get; set; }
+        public float towerAttackRange { get; set; }
 
         void Start()
         {

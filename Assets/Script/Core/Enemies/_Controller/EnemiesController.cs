@@ -12,10 +12,11 @@ namespace dang
         public int maxHealth = 100;
         public float moveSpeed = 1f;
         public float MoveSpeed { get; set; }
-        public static event UnityAction OnEndReached;
+        public static event UnityAction<EnemiesController> OnEndReached;
         private EnemyHealth enemyHealth;
         private SpriteRenderer spriteRenderer;
         private ObjectPooling pool;
+        [HideInInspector] public EnemyHealth EnemyHealth { get; set; }
 
         // ========================= Enemy Waypoint ========================
         [Header("Enemy Waypoint")]
@@ -29,7 +30,7 @@ namespace dang
         // ========================= Enemy State Machine ========================
         [Header("Enemy State Machine")]
         public Animator animator;
-        public EnemyStateMachine enemyStateMachine;
+        [HideInInspector] public EnemyStateMachine enemyStateMachine;
 
         public void Awake()
         {
@@ -42,6 +43,7 @@ namespace dang
             enemyHealth = GetComponent<EnemyHealth>();
             pool = FindAnyObjectByType<ObjectPooling>();
             spriteRenderer = GetComponent<SpriteRenderer>();
+            EnemyHealth = GetComponent<EnemyHealth>();
 
             MoveSpeed = moveSpeed;
 
@@ -113,7 +115,7 @@ namespace dang
 
         private void EndPointReached()
         {
-            OnEndReached?.Invoke();
+            OnEndReached?.Invoke(this);
             enemyHealth.ResetHealth();
             ObjectPooling.ReturnToPool(gameObject);
         }

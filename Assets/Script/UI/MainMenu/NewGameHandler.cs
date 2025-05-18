@@ -1,40 +1,50 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
+using EasyTransition;
 
 public class NewGameHandler : MonoBehaviour, IBaseUI
 {
     public int newGameSceneIndex = 1;
     public float delayBeforeLoading = 0.5f;
     private CanvasGroup canvasGroup;
+    public TransitionSettings transitionSettings;
+    public float delay = 0.5f;
 
-    void Start()
+    void OnEnable()
+    {
+        UIManagerEvents.OnOpenNewGameMenu.AddListener(Open);
+        UIManagerEvents.OnCloseNewGameMenu.AddListener(Close);
+    }
+
+    void OnDisable()
+    {
+        UIManagerEvents.OnOpenNewGameMenu.RemoveListener(Open);
+        UIManagerEvents.OnCloseNewGameMenu.RemoveListener(Close);
+    }
+
+    IEnumerator Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
 
-        UIManagerEvents.Instance?.OnOpenNewGameMenu.AddListener(Open);
-        UIManagerEvents.Instance?.OnCloseNewGameMenu.AddListener(Close);
+        yield return new WaitUntil(() => UIManager.Instance != null);
+        foreach (Button button in UIManager.Instance.SaveSlotsButton)
+        {
+            button.gameObject.GetComponent<Button>().onClick.AddListener(OnSelectSlotButtonClick);
+        }
+        UIManager.Instance.OnNewGameBackButton.gameObject.GetComponent<Button>().onClick.AddListener(OnBackButtonClick);
     }
 
     public void OnBackButtonClick()
     {
-        UIManagerEvents.Instance?.OnOpenMainMenu?.Invoke();
-        UIManagerEvents.Instance?.OnCloseNewGameMenu?.Invoke();
+        UIManagerEvents.OnOpenMainMenu?.Invoke();
+        UIManagerEvents.OnCloseNewGameMenu?.Invoke();
     }
 
     public void OnSelectSlotButtonClick()
     {
-        StartCoroutine(LoadSceneWithDelay());
-    }
-
-    private IEnumerator LoadSceneWithDelay()
-    {
-        yield return new WaitForSeconds(delayBeforeLoading);
-        if (!SceneManager.GetSceneByBuildIndex(newGameSceneIndex).isLoaded)
-        {
-            SceneManager.LoadSceneAsync(newGameSceneIndex, LoadSceneMode.Additive);
-        }
-        UIManagerEvents.Instance?.OnCloseNewGameMenu?.Invoke();
+        TransitionManager.Instance().Transition("UIMainMenuScrene", transitionSettings, delay);
     }
 
     public void Open()

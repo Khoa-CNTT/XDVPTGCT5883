@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public static event UnityAction OnEnemyKilled;
+    public static event UnityAction<EnemiesController> OnEnemyKilled;
 
     [SerializeField] private GameObject HealthBarPrefab;
     [SerializeField] private Transform barPosition;
@@ -71,8 +71,7 @@ public class EnemyHealth : MonoBehaviour
     private void Die()
     {
         ShowHealthBar(false);
-        OnEnemyKilled?.Invoke();
+        OnEnemyKilled?.Invoke(this.enemiesController);
         enemiesController.Dead();
     }
-
 }

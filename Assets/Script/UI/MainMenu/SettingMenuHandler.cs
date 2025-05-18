@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,17 +11,31 @@ public class SettingMenuHandler : MonoBehaviour, IBaseUI
     private bool isDimmedAudio = false;
     private bool isDimmedMusic = false;
 
-    void Start()
+    void OnEnable()
+    {
+        UIManagerEvents.OnOpenSettingMenu.AddListener(Open);
+        UIManagerEvents.OnCloseSettingMenu.AddListener(Close);
+    }
+
+    void OnDisable()
+    {
+        UIManagerEvents.OnOpenSettingMenu.RemoveListener(Open);
+        UIManagerEvents.OnCloseSettingMenu.RemoveListener(Close);
+    }
+
+    IEnumerator Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
 
-        UIManagerEvents.Instance?.OnOpenSettingMenu.AddListener(Open);
-        UIManagerEvents.Instance?.OnCloseSettingMenu.AddListener(Close);
+        yield return new WaitUntil(() => UIManager.Instance != null);
+        UIManager.Instance.AudioButton.gameObject.GetComponent<Button>().onClick.AddListener(OnAudioButtonClick);
+        UIManager.Instance.MusicButton.gameObject.GetComponent<Button>().onClick.AddListener(OnMusicButtonClick);
+        UIManager.Instance.OnSettingBackButton.gameObject.GetComponent<Button>().onClick.AddListener(OnExitButtonClick);
     }
 
     public void OnExitButtonClick()
     {
-        UIManagerEvents.Instance?.OnCloseSettingMenu?.Invoke();
+        UIManagerEvents.OnCloseSettingMenu?.Invoke();
     }
 
     public void OnAudioButtonClick()

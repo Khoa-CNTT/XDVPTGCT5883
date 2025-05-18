@@ -23,7 +23,7 @@ namespace dang
             TotalLives = live;
         }
 
-        private void ReduceLives()
+        private void ReduceLives(EnemiesController enemy)
         {
             TotalLives--;
 

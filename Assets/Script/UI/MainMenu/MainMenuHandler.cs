@@ -1,26 +1,41 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuHandler : MonoBehaviour, IBaseUI
 {
     CanvasGroup canvasGroup;
 
-    public void Start()
+    void OnEnable()
+    {
+        UIManagerEvents.OnOpenMainMenu.AddListener(Open);
+        UIManagerEvents.OnCloseMainMenu.AddListener(Close);
+    }
+
+    void OnDisable()
+    {
+        UIManagerEvents.OnOpenMainMenu.RemoveListener(Open);
+        UIManagerEvents.OnCloseMainMenu.RemoveListener(Close);
+    }
+
+    IEnumerator Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
 
-        UIManagerEvents.Instance?.OnOpenMainMenu.AddListener(Open);
-        UIManagerEvents.Instance?.OnCloseMainMenu.AddListener(Close);
+        yield return new WaitUntil(() => UIManager.Instance != null);
+        UIManager.Instance.StartGameButton.gameObject.GetComponent<Button>().onClick.AddListener(OnStartButtonClick);
+        UIManager.Instance.SettingButton.gameObject.GetComponent<Button>().onClick.AddListener(OnSettingButtonClick);
     }
 
     public void OnSettingButtonClick()
     {
-        UIManagerEvents.Instance?.OnOpenSettingMenu?.Invoke();
+        UIManagerEvents.OnOpenSettingMenu?.Invoke();
     }
 
     public void OnStartButtonClick()
     {
-        UIManagerEvents.Instance?.OnCloseMainMenu?.Invoke();
-        UIManagerEvents.Instance?.OnOpenNewGameMenu?.Invoke();
+        UIManagerEvents.OnCloseMainMenu?.Invoke();
+        UIManagerEvents.OnOpenNewGameMenu?.Invoke();
     }
 
     public void Open()

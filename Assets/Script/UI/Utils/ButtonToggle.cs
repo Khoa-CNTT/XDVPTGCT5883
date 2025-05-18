@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using EasyTransition;
 
 public class ButtonToggle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -9,6 +10,10 @@ public class ButtonToggle : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public Image pressedImage;
     public TextMeshProUGUI buttonTMP;
     private Button button;
+    [SerializeField] private string sceneName;
+    [SerializeField] private TransitionSettings transitionSettings;
+    [SerializeField] private float delay = 0.5f;
+
 
     void Start()
     {
@@ -19,6 +24,12 @@ public class ButtonToggle : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             pressedImage.gameObject.SetActive(false);
             regularImage.gameObject.SetActive(true);
         }
+        button.onClick.AddListener(() => TransitionManager.Instance().Transition(sceneName, transitionSettings, delay));
+    }
+
+    public void OnClick()
+    {
+        button.onClick.Invoke();
     }
 
     public void OnPointerDown(PointerEventData eventData)

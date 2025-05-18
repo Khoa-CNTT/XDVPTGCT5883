@@ -105,7 +105,7 @@ namespace dang
             enemySpawned = 0;
         }
 
-        private void RecordEnemy()
+        private void RecordEnemy(EnemiesController dummy)
         {
             enemyRemaining--;
             if (enemyRemaining <= 0)

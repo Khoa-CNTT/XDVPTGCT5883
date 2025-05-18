@@ -371,6 +371,9 @@ MonoBehaviour:
   regularImage: {fileID: 0}
   pressedImage: {fileID: 0}
   buttonTMP: {fileID: 1741680689}
+  sceneName: Level_1
+  transitionSettings: {fileID: 11400000, guid: 057babd6f13132c449650d99e3c4e99c, type: 2}
+  delay: 0.5
 --- !u!114 &40714266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,6 +587,9 @@ MonoBehaviour:
   regularImage: {fileID: 0}
   pressedImage: {fileID: 0}
   buttonTMP: {fileID: 708006441}
+  sceneName: 
+  transitionSettings: {fileID: 0}
+  delay: 0.5
 --- !u!114 &79698770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1585,6 +1591,9 @@ MonoBehaviour:
   regularImage: {fileID: 1325647542}
   pressedImage: {fileID: 428213374}
   buttonTMP: {fileID: 0}
+  sceneName: 
+  transitionSettings: {fileID: 0}
+  delay: 0.5
 --- !u!1 &238388437
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,6 +2350,9 @@ MonoBehaviour:
   regularImage: {fileID: 0}
   pressedImage: {fileID: 0}
   buttonTMP: {fileID: 904258704}
+  sceneName: 
+  transitionSettings: {fileID: 0}
+  delay: 0.5
 --- !u!114 &539214955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2478,6 +2490,9 @@ MonoBehaviour:
   regularImage: {fileID: 0}
   pressedImage: {fileID: 0}
   buttonTMP: {fileID: 513498831}
+  sceneName: 
+  transitionSettings: {fileID: 0}
+  delay: 0.5
 --- !u!114 &547740149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3078,6 +3093,9 @@ MonoBehaviour:
   regularImage: {fileID: 0}
   pressedImage: {fileID: 0}
   buttonTMP: {fileID: 1243091013}
+  sceneName: 
+  transitionSettings: {fileID: 0}
+  delay: 0.5
 --- !u!114 &688978354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3160,6 +3178,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 688978351}
   m_CullTransparentMesh: 1
+--- !u!1 &689486544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 689486546}
+  - component: {fileID: 689486545}
+  m_Layer: 0
+  m_Name: TransitionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &689486545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689486544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61430b0086307cc4da3ccc8d39ae88da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionTemplate: {fileID: 5276914992623515724, guid: 616d511151a6c554caddf1c754e4f91d, type: 3}
+--- !u!4 &689486546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689486544}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 685.3631, y: 607.9608, z: 10.227178}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &698736103
 GameObject:
   m_ObjectHideFlags: 0
@@ -4136,7 +4199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &994624292
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4643,6 +4706,9 @@ MonoBehaviour:
   regularImage: {fileID: 0}
   pressedImage: {fileID: 0}
   buttonTMP: {fileID: 728166884}
+  sceneName: 
+  transitionSettings: {fileID: 0}
+  delay: 0.5
 --- !u!114 &1102748994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7299,7 +7365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2119471903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7446,3 +7512,4 @@ SceneRoots:
   - {fileID: 227766570}
   - {fileID: 722901599}
   - {fileID: 2119471905}
+  - {fileID: 689486546}

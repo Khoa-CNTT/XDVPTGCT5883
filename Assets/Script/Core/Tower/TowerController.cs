@@ -57,7 +57,7 @@ namespace dang
                 {
                     archerAnimator.Play("Idle");
                     currentAnimation = "Idle";
-                    archerAnimator.speed = 1f; // <- Thêm dòng này
+                    archerAnimator.speed = 1f;
                 }
             }
         }
@@ -74,6 +74,7 @@ namespace dang
                 CurrentEnemyTarget = enemiesInRange[0];
             }
         }
+
 
         private void RotateTowardsTarget()
         {
@@ -92,18 +93,7 @@ namespace dang
                 {
                     archerAnimator.speed = towerStats.towerAttackSpeed / 6;
                 }
-
-                // Debug.Log($"Playing Animation: {directionAnim}");
             }
-
-            // if (angle > 270f && angle <= 90f)
-            // {
-            //     archerPosTransform.flipX = true;
-            // }
-            // else
-            // {
-            //     archerPosTransform.flipX = false;
-            // }
         }
 
         private string GetAnimationDirection(float angle)

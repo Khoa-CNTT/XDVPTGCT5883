@@ -87,6 +87,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5719338715008909303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8299640850940303618}
+  m_Layer: 0
+  m_Name: BulletPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8299640850940303618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5719338715008909303}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.82, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2736593547336448737}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6220867897794263338
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,9 +158,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2736593547336448737}
-  - component: {fileID: 1223412508863857124}
   - component: {fileID: 1422628268562192955}
   - component: {fileID: 3518560968775451088}
+  - component: {fileID: 5060783043704651546}
+  - component: {fileID: 6326575005811440705}
+  - component: {fileID: 7133443890429710154}
+  - component: {fileID: 1223412508863857124}
   m_Layer: 0
   m_Name: Archer_Tower
   m_TagString: Tower
@@ -152,8 +186,82 @@ Transform:
   m_Children:
   - {fileID: 4244070724253996443}
   - {fileID: 5229037009083137647}
+  - {fileID: 8299640850940303618}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1422628268562192955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961995027457958689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93fac560a2937347beac8a9e3911c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerData: {fileID: 11400000, guid: bfb6e7aa335e5f842a452ce5b07ef46c, type: 2}
+  towerSprite: {fileID: 1121994072508852543}
+  archerPos: {fileID: 6220867897794263338}
+--- !u!114 &3518560968775451088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961995027457958689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5d0d900bd60c9478316b4884f0dbb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  archerPos: {fileID: 6220867897794263338}
+  CurrentEnemyTarget: {fileID: 0}
+--- !u!114 &5060783043704651546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961995027457958689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e054b508e69994a929c516f9c46dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawnPostition: {fileID: 8299640850940303618}
+  delayBetweenShots: 2
+  damage: 2
+--- !u!114 &6326575005811440705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961995027457958689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30a32615830252489ac4950fa845751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 3231093893346486454, guid: 68311e79fe9365b40b15027052235c29, type: 3}
+  poolSize: 10
+--- !u!114 &7133443890429710154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961995027457958689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca66bb9ad2fab874fa100fda35b600c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeInitialCost: 0
+  upgradeCostIncremental: 0
+  damageIncremental: 0
 --- !u!58 &1223412508863857124
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -190,33 +298,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &1422628268562192955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7961995027457958689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93fac560a2937347beac8a9e3911c2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towerData: {fileID: 11400000, guid: bfb6e7aa335e5f842a452ce5b07ef46c, type: 2}
-  towerSprite: {fileID: 1121994072508852543}
-  archerPos: {fileID: 6220867897794263338}
---- !u!114 &3518560968775451088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7961995027457958689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5d0d900bd60c9478316b4884f0dbb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8804733855000345205
 GameObject:
   m_ObjectHideFlags: 0
