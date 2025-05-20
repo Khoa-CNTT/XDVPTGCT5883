@@ -4,6 +4,6 @@ public class MortonTableDebugger : MonoBehaviour
 {
     void Start()
     {
-        LookUpTable.ExportMortonTableToFile();
+        mortoncode.ExportMortonTableToFile();
     }
 }

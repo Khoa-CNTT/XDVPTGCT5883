@@ -15,7 +15,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - LoadingScreen
   - 
   - 
   - 
@@ -51,6 +51,9 @@ TagManager:
   - name: Enemy
     uniqueID: 478944735
     locked: 0
+  - name: Bullet
+    uniqueID: 414005111
+    locked: 0
   - name: Tower
     uniqueID: 3821384851
     locked: 0
@@ -59,6 +62,9 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 1038525259
+    locked: 0
+  - name: LoadingScreen
+    uniqueID: 3779022833
     locked: 0
   m_RenderingLayers:
   - Default

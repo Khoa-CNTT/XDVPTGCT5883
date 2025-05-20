@@ -3,13 +3,13 @@ using System.IO;
 using UnityEngine;
 using System.Text;
 
-public static class LookUpTable
+public static class mortoncode
 {
     private static readonly ushort[] Morton256X;
     private static readonly ushort[] Morton256Y;
     private static readonly uint[,] MortonTable;
 
-    static LookUpTable()
+    static mortoncode()
     {
         Morton256X = new ushort[256];
         Morton256Y = new ushort[256];
