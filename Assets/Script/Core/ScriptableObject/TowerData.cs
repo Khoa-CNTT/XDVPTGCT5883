@@ -9,4 +9,6 @@ public class TowerData : ScriptableObject
     public float damage;
     public float attackSpeed;
     public float range;
+    public float TowerShopCost;
+    public float TowerUpgradeShopCost;
 }

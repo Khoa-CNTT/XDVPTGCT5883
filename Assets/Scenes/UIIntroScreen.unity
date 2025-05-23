@@ -999,6 +999,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Save Screen
       objectReference: {fileID: 0}
+    - target: {fileID: 41165884559831158, guid: bc17cad55fdb7534fb6ee5ffeaf89aa5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2428839835981638473, guid: bc17cad55fdb7534fb6ee5ffeaf89aa5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -1245,6 +1249,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1677818736}
     m_Modifications:
+    - target: {fileID: 684922221460946569, guid: 936dad9405b8da740a80b0909a1fa6b2, type: 3}
+      propertyPath: transitionSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 057babd6f13132c449650d99e3c4e99c, type: 2}
     - target: {fileID: 1798824547916439725, guid: 936dad9405b8da740a80b0909a1fa6b2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0

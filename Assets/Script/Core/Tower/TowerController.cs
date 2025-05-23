@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,12 +10,14 @@ namespace dang
         private Animator archerAnimator;
         public GameObject archerPos;
         private SpriteRenderer archerPosTransform;
-        private TowerInit towerStats;
+        public TowerInit towerStats;
+        public float AttackRange => towerStats.towerAttackRange;
+        private bool isFacingLeft = false;
 
         [Header("Tower Attributes")]
         private List<EnemiesController> enemiesInRange;
         [HideInInspector] public EnemiesController CurrentEnemyTarget;
-
+        public TowerUpgrade TowerUpgrade { get; set; }
         private string currentAnimation = "";
 
         IEnumerator Start()
@@ -22,7 +25,7 @@ namespace dang
             enemiesInRange = new List<EnemiesController>();
             if (archerPos == null)
             {
-                archerPos = GameObject.Find("ArcherPos");
+                Debug.LogError("Không tìm thấy archerPos!");
             }
 
             towerStats = GetComponent<TowerInit>();
@@ -43,23 +46,24 @@ namespace dang
             {
                 Debug.LogError("Không tìm thấy SpriteRenderer của Archer!");
             }
+
+            TowerUpgrade = GetComponent<TowerUpgrade>();
         }
 
         void Update()
         {
             GetCurerntEnemyTarget();
             RotateTowardsTarget();
+        }
 
-            if (CurrentEnemyTarget == null && archerAnimator != null)
+        public void InjectData(TowerData data)
+        {
+            if (towerStats == null)
             {
-                AnimatorStateInfo stateInfo = archerAnimator.GetCurrentAnimatorStateInfo(0);
-                if (currentAnimation != "Idle" && stateInfo.normalizedTime >= 1f)
-                {
-                    archerAnimator.Play("Idle");
-                    currentAnimation = "Idle";
-                    archerAnimator.speed = 1f;
-                }
+                towerStats = GetComponent<TowerInit>();
             }
+
+            towerStats.SetData(data);
         }
 
         private void GetCurerntEnemyTarget()
@@ -75,23 +79,59 @@ namespace dang
             }
         }
 
-
         private void RotateTowardsTarget()
         {
-            if (CurrentEnemyTarget == null || archerAnimator == null) return;
+            if (archerAnimator == null) return;
+
+            if (CurrentEnemyTarget == null)
+            {
+                if (currentAnimation != "Idle")
+                {
+                    archerAnimator.Play("Idle");
+                    currentAnimation = "Idle";
+                }
+
+                return;
+            }
 
             Vector3 direction = CurrentEnemyTarget.transform.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             string directionAnim = GetAnimationDirection(angle);
 
-            AnimatorStateInfo stateInfo = archerAnimator.GetCurrentAnimatorStateInfo(0);
-            if (currentAnimation != directionAnim && stateInfo.normalizedTime >= 1f)
+            if (currentAnimation != directionAnim)
             {
                 archerAnimator.Play(directionAnim);
                 currentAnimation = directionAnim;
+
                 if (currentAnimation != "Idle")
                 {
-                    archerAnimator.speed = towerStats.towerAttackSpeed / 6;
+                    archerAnimator.speed = towerStats.towerAttackSpeed / 2;
+                }
+            }
+
+            if (directionAnim == "Shoot Front Mirror" && !isFacingLeft)
+            {
+                archerPosTransform.transform.localScale = new Vector3(-1, 1, 1);
+                isFacingLeft = true;
+            }
+            else if (directionAnim != "Shoot Front Mirror" && isFacingLeft)
+            {
+                archerPosTransform.transform.localScale = new Vector3(1, 1, 1);
+                isFacingLeft = false;
+            }
+        }
+
+        public void ReturnToIdle()
+        {
+            if (archerAnimator == null) return;
+
+            if (CurrentEnemyTarget != null)
+            {
+                archerAnimator.Play("Idle");
+                currentAnimation = "Idle";
+                if (currentAnimation == "Idle")
+                {
+                    archerAnimator.speed = 1f;
                 }
             }
         }
@@ -100,28 +140,22 @@ namespace dang
         {
             angle = (angle + 360f) % 360f;
 
-            if (angle >= 345f || angle < 15f)
+            if (angle >= 315f || angle < 45f)
+            {
                 return "Shoot Front";
-            else if (angle >= 15f && angle < 45f)
-                return "Shoot Diagonal Up";
-            else if (angle >= 45f && angle < 75f)
+            }
+            else if (angle >= 45f && angle < 135f)
+            {
                 return "Shoot Up";
-            else if (angle >= 75f && angle < 105f)
-                return "Shoot Diagonal Up";
-            else if (angle >= 105f && angle < 165f)
-                return "Shoot Front";
-            else if (angle >= 165f && angle < 195f)
-                return "Shoot Diagonal Down";
-            else if (angle >= 195f && angle < 255f)
-                return "Shoot Down";
-            else if (angle >= 255f && angle < 285f)
-                return "Shoot Diagonal Down";
-            else if (angle >= 285f && angle < 315f)
-                return "Shoot Front";
-            else if (angle >= 315f && angle < 345f)
-                return "Shoot Diagonal Up";
+            }
+            else if (angle >= 135f && angle < 225f)
+            {
+                return "Shoot Front Mirror";
+            }
             else
-                return "Shoot Front";
+            {
+                return "Shoot Down";
+            }
         }
 
         void OnTriggerEnter2D(Collider2D collision)

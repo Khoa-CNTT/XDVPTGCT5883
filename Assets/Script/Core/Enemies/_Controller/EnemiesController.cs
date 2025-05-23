@@ -17,6 +17,7 @@ namespace dang
         private SpriteRenderer spriteRenderer;
         private ObjectPooling pool;
         [HideInInspector] public EnemyHealth EnemyHealth { get; set; }
+        private bool isRecorded = false;
 
         // ========================= Enemy Waypoint ========================
         [Header("Enemy Waypoint")]
@@ -55,13 +56,6 @@ namespace dang
         public void Update()
         {
             enemyStateMachine.Update();
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Hit();
-                enemyHealth.DealDamage(5f);
-            }
-
             enemyHealth.CalculateHealth();
         }
 
@@ -115,7 +109,11 @@ namespace dang
 
         private void EndPointReached()
         {
-            OnEndReached?.Invoke(this);
+            if (!isRecorded)
+            {
+                isRecorded = true;
+                OnEndReached?.Invoke(this);
+            }
             enemyHealth.ResetHealth();
             ObjectPooling.ReturnToPool(gameObject);
         }
@@ -144,6 +142,7 @@ namespace dang
         {
             enemyStateMachine.ChangeState(EnumState.Run);
             currentWaypointIndex = 0;
+            isRecorded = false;
         }
     }
 }

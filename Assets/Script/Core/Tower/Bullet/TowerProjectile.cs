@@ -1,28 +1,36 @@
+using System.Collections;
 using dang;
 using UnityEngine;
 
 public class TowerProjectile : MonoBehaviour
 {
     [SerializeField] private Transform bulletSpawnPostition;
-    [SerializeField] private float delayBetweenShots = 2f;
-    [SerializeField] private float damage = 2f;
+    private float delayBtwAttacks;
+    private float _NextAttackTime;
 
     public float Damage { get; set; }
-    public float DelayPershot { get; set; }
+    public float AttackSpeed { get; set; }
 
-    private float _nextAttackTime;
     private ObjectPooling _pool;
     private TowerController _tower;
     private Bullet _currentBulletLoaded;
+    private TowerInit _towerData;
+    private bool _isAttacking = false;
 
-    void Start()
+    void Awake()
     {
         _pool = GetComponent<ObjectPooling>();
         _tower = GetComponent<TowerController>();
+        _towerData = GetComponent<TowerInit>();
+    }
 
-        Damage = damage;
-        DelayPershot = delayBetweenShots;
-        LoadProjectile();
+    IEnumerator Start()
+    {
+        yield return new WaitUntil(() => _towerData.towerDamage != 0 && _towerData.towerAttackSpeed != 0);
+        Damage = _towerData.towerDamage;
+        AttackSpeed = _towerData.towerAttackSpeed;
+
+        delayBtwAttacks = 1f / AttackSpeed;
     }
 
     void Update()
@@ -30,17 +38,6 @@ public class TowerProjectile : MonoBehaviour
         if (IsTurretEmpty())
         {
             LoadProjectile();
-        }
-
-        if (Time.time > _nextAttackTime)
-        {
-            if (_tower.CurrentEnemyTarget != null && _currentBulletLoaded != null && _tower.CurrentEnemyTarget.EnemyHealth.CurrentHealth > 0f)
-            {
-                _currentBulletLoaded.transform.transform.parent = null;
-                _currentBulletLoaded.SetEnemy(_tower.CurrentEnemyTarget);
-            }
-
-            _nextAttackTime = Time.time + DelayPershot;
         }
     }
 
@@ -67,4 +64,22 @@ public class TowerProjectile : MonoBehaviour
     {
         _currentBulletLoaded = null;
     }
+
+    public void Shoot()
+    {
+        if (_tower == null || _tower.CurrentEnemyTarget == null || IsTurretEmpty()) return;
+        if (_tower.CurrentEnemyTarget.EnemyHealth.CurrentHealth <= 0f) return;
+
+        if (Time.time < _NextAttackTime)
+        {
+            return;
+        }
+
+        _currentBulletLoaded.transform.parent = null;
+        _currentBulletLoaded.SetEnemy(_tower.CurrentEnemyTarget);
+        _isAttacking = true;
+
+        _NextAttackTime = Time.time + delayBtwAttacks;
+    }
+
 }

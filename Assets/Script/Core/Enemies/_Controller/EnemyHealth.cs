@@ -19,6 +19,7 @@ public class EnemyHealth : MonoBehaviour
     public Image healthBar;
     public bool isDead = false;
     private EnemiesController enemiesController;
+    private bool isRecorded = false; // Thêm biến này
 
     void Start()
     {
@@ -66,12 +67,20 @@ public class EnemyHealth : MonoBehaviour
         CurrentHealth = initialHealth;
         healthBar.fillAmount = 1f;
         ShowHealthBar(true);
+        isRecorded = false; // Reset lại flag khi enemy được tái sử dụng
     }
 
     private void Die()
     {
         ShowHealthBar(false);
-        OnEnemyKilled?.Invoke(this.enemiesController);
+        if (!isRecorded)
+        {
+            isRecorded = true;
+            OnEnemyKilled?.Invoke(this.enemiesController);
+        }
+        AchievementManager.Instance.AddProgress("Kill_Easy_01", 1);
+        AchievementManager.Instance.AddProgress("Kill_Medium_01", 1);
+        AchievementManager.Instance.AddProgress("Kill_Hard_01", 1);
         enemiesController.Dead();
     }
 }

@@ -15,11 +15,8 @@ namespace dang
         public float towerDamage { get; set; }
         public float towerAttackSpeed { get; set; }
         public float towerAttackRange { get; set; }
-
-        void Start()
-        {
-            Init();
-        }
+        public float TowerShopCost { get; set; }
+        public float TowerUpgradeShopCost { get; set; }
 
         void Init()
         {
@@ -56,6 +53,8 @@ namespace dang
             towerDamage = towerData.damage;
             towerAttackSpeed = towerData.attackSpeed;
             towerAttackRange = towerData.range;
+            TowerShopCost = towerData.TowerShopCost;
+            TowerUpgradeShopCost = towerData.TowerUpgradeShopCost;
 
             GetComponent<CircleCollider2D>().radius = towerAttackRange;
         }
@@ -63,6 +62,12 @@ namespace dang
         void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(transform.position, towerAttackRange / 1.33f);
+        }
+
+        public void SetData(TowerData data)
+        {
+            towerData = data;
+            Init();
         }
     }
 }

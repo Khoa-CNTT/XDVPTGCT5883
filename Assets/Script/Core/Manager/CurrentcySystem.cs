@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CurrentcySystem : Singleton<CurrentcySystem>
 {
-    [SerializeField] private int coinTest;
+    [SerializeField] private int coin;
     private string CUTTENCY_SAVE_KEY = "MYGAME_CURRENCY";
 
     public int TotalCoins { get; set; }
@@ -27,7 +27,7 @@ public class CurrentcySystem : Singleton<CurrentcySystem>
 
     private void Loadcoins()
     {
-        TotalCoins = PlayerPrefs.GetInt(CUTTENCY_SAVE_KEY, coinTest);
+        TotalCoins = PlayerPrefs.GetInt(CUTTENCY_SAVE_KEY, coin);
     }
 
     public void AddCoins(int amount)

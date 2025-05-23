@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   archerPos: {fileID: 6220867897794263338}
+  towerStats: {fileID: 0}
   CurrentEnemyTarget: {fileID: 0}
 --- !u!114 &5060783043704651546
 MonoBehaviour:
@@ -231,8 +232,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpawnPostition: {fileID: 8299640850940303618}
-  delayBetweenShots: 2
-  damage: 2
 --- !u!114 &6326575005811440705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,9 +258,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca66bb9ad2fab874fa100fda35b600c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeInitialCost: 0
-  upgradeCostIncremental: 0
-  damageIncremental: 0
+  upgradeCostIncremental: 5
+  damageIncremental: 5
+  sellPert: 0.7
 --- !u!58 &1223412508863857124
 CircleCollider2D:
   m_ObjectHideFlags: 0

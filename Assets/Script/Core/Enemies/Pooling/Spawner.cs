@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace dang
 {
     public class Spawner : MonoBehaviour
     {
+        public static Action OnWaveCompleted;
+
         [Header("Settings")]
         [SerializeField] private SpawnModes spawnMode = SpawnModes.Fixed;
         [SerializeField] private int enemyCount = 10;
@@ -23,11 +26,17 @@ namespace dang
         [SerializeField] private float minRandomDelay;
         [SerializeField] private float maxRandomDelay;
 
+        [Header("Poller")]
+        [SerializeField] private ObjectPooling enemyWave10Pooler;
+        [SerializeField] private ObjectPooling enemyWave11To20Pooler;
+        [SerializeField] private ObjectPooling enemyWave21To30Pooler;
+        [SerializeField] private ObjectPooling enemyWave31To40Pooler;
+        [SerializeField] private ObjectPooling enemyWave41To50Pooler;
+
+
         private float spawnerTimer;
         private int enemySpawned;
         private int enemyRemaining;
-
-        private ObjectPooling pool;
         private Waypoint _waypoint;
 
         void OnEnable()
@@ -44,7 +53,6 @@ namespace dang
 
         void Start()
         {
-            pool = GetComponent<ObjectPooling>();
             _waypoint = GetComponent<Waypoint>();
 
             enemyRemaining = enemyCount;
@@ -53,6 +61,12 @@ namespace dang
         void Update()
         {
             spawnerTimer -= Time.deltaTime;
+
+            if (LevelManager.Instance != null && LevelManager.Instance.IsFinalWave)
+            {
+                return;
+            }
+
             if (spawnerTimer <= 0)
             {
                 spawnerTimer = GetSpawnDelay();
@@ -66,7 +80,7 @@ namespace dang
 
         private void SpawnEnemy()
         {
-            GameObject newInstance = pool.GetInstanceFromPool();
+            GameObject newInstance = GetPooler().GetInstanceFromPool();
             EnemiesController enemiesController = newInstance.GetComponent<EnemiesController>();
             EnemyHealth enemyHealth = newInstance.GetComponent<EnemyHealth>();
             enemiesController.ResetEnemy();
@@ -93,8 +107,39 @@ namespace dang
 
         private float GetRandomDelay()
         {
-            float radomTimer = Random.Range(minRandomDelay, maxRandomDelay);
+            float radomTimer = UnityEngine.Random.Range(minRandomDelay, maxRandomDelay);
             return radomTimer;
+        }
+
+        private ObjectPooling GetPooler()
+        {
+            int currentWave = LevelManager.Instance.CurrentWave;
+            if (currentWave <= 10)
+            {
+                return enemyWave10Pooler;
+            }
+
+            if (currentWave > 10 && currentWave <= 20)
+            {
+                return enemyWave11To20Pooler;
+            }
+
+            if (currentWave > 20 && currentWave <= 30)
+            {
+                return enemyWave21To30Pooler;
+            }
+
+            if (currentWave > 30 && currentWave <= 40)
+            {
+                return enemyWave31To40Pooler;
+            }
+
+            if (currentWave > 40 && currentWave <= 50)
+            {
+                return enemyWave41To50Pooler;
+            }
+
+            return null;
         }
 
         private IEnumerator NextWave()
@@ -110,6 +155,7 @@ namespace dang
             enemyRemaining--;
             if (enemyRemaining <= 0)
             {
+                OnWaveCompleted?.Invoke();
                 StartCoroutine(NextWave());
             }
         }

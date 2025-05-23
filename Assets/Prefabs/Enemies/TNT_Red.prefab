@@ -44,8 +44,8 @@ GameObject:
   - component: {fileID: 1311165869129665754}
   - component: {fileID: 8064618117101859188}
   - component: {fileID: 5298465231077182566}
-  - component: {fileID: -8786011125889635285}
   - component: {fileID: -6999738289616283208}
+  - component: {fileID: -8786011125889635285}
   m_Layer: 0
   m_Name: TNT_Red
   m_TagString: Enemy
@@ -110,8 +110,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 478944735
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 715156012988467184, guid: ecef2d532793329468f79798e3e39e4c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -219,6 +219,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-6999738289616283208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7435001550296927963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6204770efa7904893cf330e1329c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityType: Blue
+  maxHealth: 100
+  moveSpeed: 1
+  animator: {fileID: 1311165869129665754}
+  enemyStateMachine: {fileID: 0}
 --- !u!114 &-8786011125889635285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,20 +254,3 @@ MonoBehaviour:
   maxHealth: 10
   healthBar: {fileID: 0}
   isDead: 0
---- !u!114 &-6999738289616283208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7435001550296927963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c6204770efa7904893cf330e1329c3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityType: Blue
-  maxHealth: 100
-  moveSpeed: 1
-  animator: {fileID: 1311165869129665754}
-  enemyStateMachine: {fileID: 0}

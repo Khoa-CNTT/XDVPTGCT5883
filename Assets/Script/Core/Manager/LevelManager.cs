@@ -1,36 +1,66 @@
+using dang;
 using UnityEngine;
 
-namespace dang
+public class LevelManager : Singleton<LevelManager>
 {
-    public class LevelManager : MonoBehaviour
+    [SerializeField] private int live = 10;
+    [SerializeField] private int maxWave = 5;
+
+    private bool isFinalWave = false;
+
+    public int MaxWave { get; set; }
+    public int TotalLives { get; set; }
+    public int CurrentWave { get; set; }
+    public bool IsFinalWave { get; set; }
+
+    void OnEnable()
     {
-        [SerializeField] private int live = 10;
+        EnemiesController.OnEndReached += ReduceLives;
+        Spawner.OnWaveCompleted += WaveCompleted;
+    }
 
-        public int TotalLives { get; set; }
+    void OnDisable()
+    {
+        EnemiesController.OnEndReached -= ReduceLives;
+        Spawner.OnWaveCompleted -= WaveCompleted;
+    }
 
-        void OnEnable()
+    void Start()
+    {
+        TotalLives = live;
+        MaxWave = maxWave;
+        CurrentWave = 1;
+        isFinalWave = false;
+    }
+
+    private void WaveCompleted()
+    {
+        if (CurrentWave == maxWave)
         {
-            EnemiesController.OnEndReached += ReduceLives;
+            isFinalWave = true;
+            IsFinalWave = isFinalWave;
+            TowerUIManager.Instance.ShowGameOverPanel();
+        }
+        else
+        {
+            CurrentWave++;
         }
 
-        void OnDisable()
-        {
-            EnemiesController.OnEndReached -= ReduceLives;
-        }
+        AchievementManager.Instance.AddProgress("Waves_Easy_01", 1);
+        AchievementManager.Instance.AddProgress("Waves_Medium_01", 1);
+        AchievementManager.Instance.AddProgress("Waves_Hard_01", 1);
+    }
 
-        void Start()
-        {
-            TotalLives = live;
-        }
+    private void ReduceLives(EnemiesController enemy)
+    {
+        TotalLives--;
 
-        private void ReduceLives(EnemiesController enemy)
+        if (TotalLives <= 0)
         {
-            TotalLives--;
-
-            if (TotalLives <= 0)
-            {
-                TotalLives = 0;
-            }
+            TotalLives = 0;
+            isFinalWave = true;
+            IsFinalWave = isFinalWave;
+            TowerUIManager.Instance.ShowGameOverPanel();
         }
     }
 }

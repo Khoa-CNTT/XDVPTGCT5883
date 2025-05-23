@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3611e3b93d71b114999f2c2840a0053c, type: 3}
+  m_Name: Kill_100_Enemies
+  m_EditorClassIdentifier: 
+  ID: Kill_Medium_01
+  Title: Hunter
+  ProgressToUnlock: 100
+  GoldReward: 120
+  Sprite: {fileID: 1425492038991181911, guid: 88453d84fc92ef14d83b21f5d3195a4c, type: 3}
